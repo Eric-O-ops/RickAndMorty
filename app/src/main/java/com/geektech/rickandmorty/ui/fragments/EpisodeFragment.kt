@@ -19,7 +19,6 @@ class EpisodeFragment
     private val episodeAdapter: EpisodeAdapter = EpisodeAdapter()
 
     override fun initialization() {
-        Toast.makeText(requireContext(), "FragmentEpisode", Toast.LENGTH_SHORT).show()
         binding.characterRV.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = episodeAdapter

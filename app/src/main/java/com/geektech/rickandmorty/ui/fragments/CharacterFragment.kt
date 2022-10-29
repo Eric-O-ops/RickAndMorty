@@ -19,7 +19,6 @@ class CharacterFragment
     private val characterAdapter: CharacterAdapter = CharacterAdapter()
 
     override fun initialization() {
-        Toast.makeText(requireContext(), "FragmentCharacter", Toast.LENGTH_SHORT).show()
         binding.characterRV.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = characterAdapter

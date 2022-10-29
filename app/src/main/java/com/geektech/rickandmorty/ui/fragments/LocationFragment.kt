@@ -19,7 +19,6 @@ class LocationFragment
     private val locationAdapter: LocationAdapter = LocationAdapter()
 
     override fun initialization() {
-        Toast.makeText(requireContext(), "FragmentLocation", Toast.LENGTH_SHORT).show()
         binding.characterRV.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = locationAdapter
