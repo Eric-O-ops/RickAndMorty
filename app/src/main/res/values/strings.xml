@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">RickAndMorty</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="first_seen_in">First seen in:</string>
+    <string name="last_known_location">Last known location:</string>
+    <string name="characters">characters</string>
+    <string name="location">location</string>
+    <string name="episode">episode</string>
+</resources>
