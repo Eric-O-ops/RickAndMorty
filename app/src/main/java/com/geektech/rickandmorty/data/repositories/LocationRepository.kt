@@ -1,6 +1,7 @@
 package com.geektech.rickandmorty.data.repositories
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.geektech.rickandmorty.App
 import com.geektech.rickandmorty.model.RickAndMortyResponse
@@ -14,14 +15,17 @@ class LocationRepository {
     val data: MutableLiveData<RickAndMortyResponse<LocationModel>> = MutableLiveData()
 
     fun fetchLocation(): MutableLiveData<RickAndMortyResponse<LocationModel>> {
-        App.characterApi?.fetchLocation()
+        App.locationApi?.fetchLocation()
             ?.enqueue(object : Callback<RickAndMortyResponse<LocationModel>> {
                 override fun onResponse(
                     call: Call<RickAndMortyResponse<LocationModel>>,
                     response: Response<RickAndMortyResponse<LocationModel>>
                 ) {
-                    data.value = response.body()
-                    Log.e("Location", "callBack in LocationRepository was succeed")
+                    response.body()?.let {
+                        App.appDatabase?.locationDao()?.insertList(it.results)
+                        data.value = it
+                        Log.e("Location", "callBack in LocationRepository was succeed")
+                    }
                 }
 
                 override fun onFailure(
@@ -32,5 +36,10 @@ class LocationRepository {
                 }
             })
         return data
+    }
+
+    fun getAllFromRoom(): LiveData<List<LocationModel>>? {
+        return App.appDatabase?.locationDao()?.getAllList()
+
     }
 }

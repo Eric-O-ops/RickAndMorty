@@ -1,10 +1,13 @@
 package com.geektech.rickandmorty.data.network
 
 import com.geektech.rickandmorty.data.network.api.CharacterApi
+import com.geektech.rickandmorty.data.network.api.EpisodeApi
+import com.geektech.rickandmorty.data.network.api.LocationApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 class RetrofitClient {
@@ -27,5 +30,13 @@ class RetrofitClient {
 
     fun provideCharacterApiService(): CharacterApi {
         return retrofit.create(CharacterApi::class.java)
+    }
+
+    fun provideLocationApiService(): LocationApi {
+        return retrofit.create(LocationApi::class.java)
+    }
+
+    fun provideEpisodeApiService(): EpisodeApi {
+        return retrofit.create(EpisodeApi::class.java)
     }
 }

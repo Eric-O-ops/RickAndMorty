@@ -2,13 +2,14 @@ package com.geektech.rickandmorty.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.geektech.rickandmorty.base.BaseDiffUtilItemCallback
 import com.geektech.rickandmorty.databinding.ItemEpisodeBinding
 import com.geektech.rickandmorty.model.episode.EpisodeModel
 
-class EpisodeAdapter : ListAdapter<EpisodeModel, EpisodeAdapter.ViewHolder>(diffUtil) {
+class EpisodeAdapter :
+    ListAdapter<EpisodeModel, EpisodeAdapter.ViewHolder>(BaseDiffUtilItemCallback()) {
 
     class ViewHolder(private val binding: ItemEpisodeBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -28,23 +29,5 @@ class EpisodeAdapter : ListAdapter<EpisodeModel, EpisodeAdapter.ViewHolder>(diff
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(getItem(position))
-    }
-
-    companion object {
-        private val diffUtil = object : DiffUtil.ItemCallback<EpisodeModel>() {
-            override fun areItemsTheSame(
-                oldItem: EpisodeModel,
-                newItem: EpisodeModel
-            ): Boolean {
-                return oldItem == newItem
-            }
-
-            override fun areContentsTheSame(
-                oldItem: EpisodeModel,
-                newItem: EpisodeModel
-            ): Boolean {
-                return oldItem.id == newItem.id
-            }
-        }
     }
 }

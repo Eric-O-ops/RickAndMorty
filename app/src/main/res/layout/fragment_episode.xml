@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_dark"
-    tools:context=".ui.fragments.EpisodeFragment">
+    tools:context=".ui.fragments.episode.EpisodeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

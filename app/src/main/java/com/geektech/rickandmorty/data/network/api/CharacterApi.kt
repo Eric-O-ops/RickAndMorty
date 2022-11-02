@@ -11,10 +11,4 @@ interface CharacterApi {
 
     @GET("api/character")
     fun fetchCharacter(): Call<RickAndMortyResponse<CharacterModel>>
-
-    @GET("api/location")
-    fun fetchLocation(): Call<RickAndMortyResponse<LocationModel>>
-
-    @GET("api/episode")
-    fun fetchEpisode(): Call<RickAndMortyResponse<EpisodeModel>>
 }

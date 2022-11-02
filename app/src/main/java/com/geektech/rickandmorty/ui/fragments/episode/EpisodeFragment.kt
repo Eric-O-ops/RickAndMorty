@@ -1,14 +1,13 @@
-package com.geektech.rickandmorty.ui.fragments
+package com.geektech.rickandmorty.ui.fragments.episode
 
 import android.util.Log
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.geektech.rickandmorty.R
 import com.geektech.rickandmorty.base.BaseFragment
+import com.geektech.rickandmorty.data.network.internetconection.InternetHelper
 import com.geektech.rickandmorty.databinding.FragmentEpisodeBinding
-import com.geektech.rickandmorty.ui.EpisodeViewModel
 import com.geektech.rickandmorty.ui.adapters.EpisodeAdapter
 
 class EpisodeFragment
@@ -26,9 +25,16 @@ class EpisodeFragment
     }
 
     override fun setupObserves() {
-        viewModel.fetchEpisode().observe(viewLifecycleOwner) {
-            episodeAdapter.submitList(it.results)
-            Log.e("Episode", "setupObserve:${it.results}")
+        if (InternetHelper.statusInternetConnection(requireContext())) {
+            viewModel.fetchEpisode().observe(viewLifecycleOwner) {
+                episodeAdapter.submitList(it.results)
+                Log.e("Episode", "setupObserveWithInternet:${it.results}")
+            }
+        }else {
+            viewModel.getAllFromRoom()?.observe(viewLifecycleOwner) {
+                episodeAdapter.submitList(it)
+                Log.e("Episode", "setupObserveWithWithoutInternet:${it}")
+            }
         }
     }
 }

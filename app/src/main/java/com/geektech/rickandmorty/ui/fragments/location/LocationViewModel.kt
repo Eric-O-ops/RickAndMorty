@@ -1,5 +1,6 @@
-package com.geektech.rickandmorty.ui
+package com.geektech.rickandmorty.ui.fragments.location
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.geektech.rickandmorty.data.repositories.LocationRepository
@@ -12,5 +13,9 @@ class LocationViewModel : ViewModel() {
 
     fun fetchLocation(): MutableLiveData<RickAndMortyResponse<LocationModel>> {
         return locationRepository.fetchLocation()
+    }
+
+    fun getAllFromRoom(): LiveData<List<LocationModel>>? {
+        return locationRepository.getAllFromRoom()
     }
 }

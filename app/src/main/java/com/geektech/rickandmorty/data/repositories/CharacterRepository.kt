@@ -1,6 +1,7 @@
 package com.geektech.rickandmorty.data.repositories
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.geektech.rickandmorty.App
 import com.geektech.rickandmorty.model.RickAndMortyResponse
@@ -20,7 +21,10 @@ class CharacterRepository {
                     call: Call<RickAndMortyResponse<CharacterModel>>,
                     response: Response<RickAndMortyResponse<CharacterModel>>
                 ) {
-                    data.value = response.body()
+                    response.body()?.let {
+                        App.appDatabase?.characterDao()?.insertList(it.results)
+                        data.value = it
+                    }
                     Log.e("Character", "callBack in CharacterRepository was succeed")
                 }
 
@@ -32,5 +36,9 @@ class CharacterRepository {
                 }
             })
         return data
+    }
+
+    fun getCharacters(): LiveData<List<CharacterModel>>? {
+        return App.appDatabase?.characterDao()?.getAllList()
     }
 }
