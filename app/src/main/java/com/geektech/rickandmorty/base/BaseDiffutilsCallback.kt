@@ -13,5 +13,4 @@ class BaseDiffUtilItemCallback<B:IBaseDifUtil> : DiffUtil.ItemCallback<B>() {
     override fun areContentsTheSame(oldItem: B, newItem: B): Boolean {
         return oldItem == newItem
     }
-
 }

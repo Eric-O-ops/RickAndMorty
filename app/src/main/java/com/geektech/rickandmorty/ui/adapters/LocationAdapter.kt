@@ -2,22 +2,30 @@ package com.geektech.rickandmorty.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.geektech.rickandmorty.base.BaseDiffUtilItemCallback
 import com.geektech.rickandmorty.databinding.ItemLocationBinding
+import com.geektech.rickandmorty.model.character.CharacterModel
 import com.geektech.rickandmorty.model.location.LocationModel
 
-class LocationAdapter : ListAdapter<LocationModel, LocationAdapter.ViewHolder>(BaseDiffUtilItemCallback()) {
+class LocationAdapter(
+    private val shortClick: OnClickLocation
+) : PagingDataAdapter<LocationModel, LocationAdapter.ViewHolder>(BaseDiffUtilItemCallback()) {
 
     class ViewHolder(private val binding: ItemLocationBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun onBind(item: LocationModel?) {
-            binding.name.text = item?.name
-            binding.type.text = item?.type
-            binding.dimension.text = item?.dimension
-            binding.created.text = item?.created
+        fun onBind(item: LocationModel?, shortClick: OnClickLocation) = with(binding) {
+            itemLocationName.text = item?.name
+            itemLocationType.text = item?.type
+            itemLocationDimension.text = item?.dimension
+            itemLocationCreated.text = item?.created
+
+            itemView.setOnClickListener {
+                shortClick.shortClick(item?.id!!)
+            }
         }
     }
 
@@ -28,6 +36,10 @@ class LocationAdapter : ListAdapter<LocationModel, LocationAdapter.ViewHolder>(B
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBind(getItem(position))
+        holder.onBind(getItem(position), shortClick)
     }
+}
+
+interface OnClickLocation {
+    fun shortClick(idModel: Int)
 }

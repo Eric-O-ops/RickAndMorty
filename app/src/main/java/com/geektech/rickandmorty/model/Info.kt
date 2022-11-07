@@ -15,5 +15,4 @@ data class Info(
 
     @SerializedName("prev")
     val prev: String
-
 )

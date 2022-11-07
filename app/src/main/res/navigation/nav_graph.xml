@@ -9,18 +9,71 @@
         android:id="@+id/character_fragment"
         android:name="com.geektech.rickandmorty.ui.fragments.character.CharacterFragment"
         android:label="fragment_character"
-        tools:layout="@layout/fragment_character" />
+        tools:layout="@layout/fragment_character" >
+        <action
+            android:id="@+id/action_character_fragment_to_detailCharacterFragment"
+            app:destination="@id/detailCharacterFragment" />
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
     <fragment
         android:id="@+id/location_fragment"
         android:name="com.geektech.rickandmorty.ui.fragments.location.LocationFragment"
         android:label="fragment_location"
-        tools:layout="@layout/fragment_location" />
+        tools:layout="@layout/fragment_location" >
+        <action
+            android:id="@+id/action_location_fragment_to_detailLocationFragment"
+            app:destination="@id/detailLocationFragment" />
+        <argument android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
     <fragment
         android:id="@+id/episode_fragment"
         android:name="com.geektech.rickandmorty.ui.fragments.episode.EpisodeFragment"
         android:label="fragment_episode"
-        tools:layout="@layout/fragment_episode" />
+        tools:layout="@layout/fragment_episode" >
+        <action
+            android:id="@+id/action_episode_fragment_to_detailEpisodeFragment"
+            app:destination="@id/detailEpisodeFragment" />
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailCharacterFragment"
+        android:name="com.geektech.rickandmorty.ui.fragments.character.detail.DetailCharacterFragment"
+        android:label="fragment_detail_character"
+        tools:layout="@layout/fragment_detail_character" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailEpisodeFragment"
+        android:name="com.geektech.rickandmorty.ui.fragments.episode.detail.DetailEpisodeFragment"
+        android:label="fragment_detail_episode"
+        tools:layout="@layout/fragment_detail_episode" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailLocationFragment"
+        android:name="com.geektech.rickandmorty.ui.fragments.location.detail.DetailLocationFragment"
+        android:label="fragment_detail_location"
+        tools:layout="@layout/fragment_detail_location" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
 </navigation>

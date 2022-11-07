@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/gray">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/item_location_name"
         android:layout_width="103dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/dimension"
+        app:layout_constraintEnd_toStartOf="@+id/item_location_dimension"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Earth" />
 
     <TextView
-        android:id="@+id/type"
+        android:id="@+id/item_location_type"
         android:layout_width="103dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/created"
+        app:layout_constraintEnd_toStartOf="@+id/item_location_created"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/item_location_name"
         tools:text="Planet" />
 
     <TextView
-        android:id="@+id/dimension"
+        android:id="@+id/item_location_dimension"
         android:layout_width="108dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -43,13 +43,13 @@
         tools:text="Dimension C-137" />
 
     <TextView
-        android:id="@+id/created"
+        android:id="@+id/item_location_created"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dimension"
+        app:layout_constraintTop_toBottomOf="@+id/item_location_dimension"
         tools:text="2017-11-10T12:42:04.162Z" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

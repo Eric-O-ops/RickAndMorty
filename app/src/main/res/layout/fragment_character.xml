@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:background="@color/light_dark"
     tools:context=".ui.fragments.character.CharacterFragment">
-    
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/characterRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/characterRV" />
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

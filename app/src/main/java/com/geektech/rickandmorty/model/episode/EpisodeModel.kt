@@ -1,14 +1,10 @@
 package com.geektech.rickandmorty.model.episode
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.geektech.rickandmorty.base.IBaseDifUtil
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "episode")
 data class EpisodeModel(
 
-    @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     override val id: Int,
 

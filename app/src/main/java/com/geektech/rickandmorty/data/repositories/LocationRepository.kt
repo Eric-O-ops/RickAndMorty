@@ -1,10 +1,13 @@
 package com.geektech.rickandmorty.data.repositories
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.geektech.rickandmorty.App
-import com.geektech.rickandmorty.model.RickAndMortyResponse
+import com.geektech.rickandmorty.data.repositories.pagingsources.LocationPagingSources
 import com.geektech.rickandmorty.model.location.LocationModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,34 +15,30 @@ import retrofit2.Response
 
 class LocationRepository {
 
-    val data: MutableLiveData<RickAndMortyResponse<LocationModel>> = MutableLiveData()
+    private val data: MutableLiveData<LocationModel> = MutableLiveData()
 
-    fun fetchLocation(): MutableLiveData<RickAndMortyResponse<LocationModel>> {
-        App.locationApi?.fetchLocation()
-            ?.enqueue(object : Callback<RickAndMortyResponse<LocationModel>> {
-                override fun onResponse(
-                    call: Call<RickAndMortyResponse<LocationModel>>,
-                    response: Response<RickAndMortyResponse<LocationModel>>
-                ) {
-                    response.body()?.let {
-                        App.appDatabase?.locationDao()?.insertList(it.results)
-                        data.value = it
-                        Log.e("Location", "callBack in LocationRepository was succeed")
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<RickAndMortyResponse<LocationModel>>,
-                    t: Throwable
-                ) {
-                    Log.e("Location", "callBack in LocationRepository was failed")
-                }
-            })
-        return data
+    fun fetchLocation(): LiveData<PagingData<LocationModel>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 10,
+                enablePlaceholders = false,
+                initialLoadSize = 2
+            ),
+            pagingSourceFactory = {
+                LocationPagingSources(App.locationApi!!)
+            }, initialKey = 1
+        ).liveData
     }
 
-    fun getAllFromRoom(): LiveData<List<LocationModel>>? {
-        return App.appDatabase?.locationDao()?.getAllList()
+    fun fetchDetailLocation(idModel: Int): MutableLiveData<LocationModel> {
 
+        App.locationApi?.fetchDetailLocation(idModel)?.enqueue(object : Callback<LocationModel> {
+            override fun onResponse(call: Call<LocationModel>, response: Response<LocationModel>) {
+                data.value = response.body()
+            }
+
+            override fun onFailure(call: Call<LocationModel>, t: Throwable) {}
+        })
+        return data
     }
 }

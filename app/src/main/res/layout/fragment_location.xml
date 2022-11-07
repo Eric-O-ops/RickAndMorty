@@ -7,8 +7,8 @@
     tools:context=".ui.fragments.location.LocationFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/locationRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/characterRV" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>

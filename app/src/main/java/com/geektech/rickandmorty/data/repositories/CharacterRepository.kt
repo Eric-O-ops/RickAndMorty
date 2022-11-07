@@ -1,10 +1,13 @@
 package com.geektech.rickandmorty.data.repositories
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.geektech.rickandmorty.App
-import com.geektech.rickandmorty.model.RickAndMortyResponse
+import com.geektech.rickandmorty.data.repositories.pagingsources.CharacterPagingSources
 import com.geektech.rickandmorty.model.character.CharacterModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,33 +15,34 @@ import retrofit2.Response
 
 class CharacterRepository {
 
-    val data: MutableLiveData<RickAndMortyResponse<CharacterModel>> = MutableLiveData()
+    val data: MutableLiveData<CharacterModel> = MutableLiveData()
 
-    fun fetchCharacter(): MutableLiveData<RickAndMortyResponse<CharacterModel>> {
-        App.characterApi?.fetchCharacter()
-            ?.enqueue(object : Callback<RickAndMortyResponse<CharacterModel>> {
-                override fun onResponse(
-                    call: Call<RickAndMortyResponse<CharacterModel>>,
-                    response: Response<RickAndMortyResponse<CharacterModel>>
-                ) {
-                    response.body()?.let {
-                        App.appDatabase?.characterDao()?.insertList(it.results)
-                        data.value = it
-                    }
-                    Log.e("Character", "callBack in CharacterRepository was succeed")
-                }
-
-                override fun onFailure(
-                    call: Call<RickAndMortyResponse<CharacterModel>>,
-                    t: Throwable
-                ) {
-                    Log.e("Character", "callBack in CharacterRepository was failed")
-                }
-            })
-        return data
+    fun fetchCharacter(): LiveData<PagingData<CharacterModel>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 10,
+                enablePlaceholders = false,
+                initialLoadSize = 2
+            ),
+            pagingSourceFactory = {
+                CharacterPagingSources(App.characterApi!!)
+            }, initialKey = 1
+        ).liveData
     }
 
-    fun getCharacters(): LiveData<List<CharacterModel>>? {
-        return App.appDatabase?.characterDao()?.getAllList()
+    fun fetchDetailCharacter(idModel: Int): MutableLiveData<CharacterModel> {
+        App.characterApi?.fetchDetailCharacter(idModel)?.enqueue(
+            object : Callback<CharacterModel> {
+                override fun onResponse(
+                    call: Call<CharacterModel>,
+                    response: Response<CharacterModel>
+                ) {
+                    data.value = response.body()
+                }
+
+                override fun onFailure(call: Call<CharacterModel>, t: Throwable) {}
+            }
+        )
+        return data
     }
 }
